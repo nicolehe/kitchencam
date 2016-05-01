@@ -1,0 +1,119 @@
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/jquery-1.12.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript">
+    var socket = io.connect('http://localhost:7000');
+    var counter = 0;
+    var clientCount = 0;
+    var incoming;
+
+    socket.on('connect', function() {
+        console.log("Connected");
+        //document.getElementById("count").innerHTML = "Say something and see if anyone is listening.";
+
+    });
+
+    //display the number of clients currently in the room
+    socket.on('clientCounter', function(data) {
+        clientCount = data;
+        console.log(clientCount);
+        if (clientCount == 1) {
+            document.getElementById("count").innerHTML = "you're the only one watching";
+        } else {
+            document.getElementById("count").innerHTML = "there are " + "<span id='time'>" + clientCount + "</span>" + " people watching";
+        }
+    });
+
+    // Receive from any event
+    socket.on('chatmessage', function(data) {
+        console.log(data);
+        incoming = data;
+        addReceived();
+    });
+
+    var sendmessage = function(message) {
+        console.log("chatmessage: " + message);
+        socket.emit('chatmessage', message);
+    };
+
+    function submit() {
+        addSent();
+        sendmessage(document.getElementById('message').value);
+        document.getElementById("message").value = "";
+    }
+
+    function addSent() {
+        counter++;
+        var div = document.createElement('div');
+        div.className = 'yourText';
+        div.id = "line " + counter;
+
+        document.getElementsByTagName('body')[0].appendChild(div);
+        document.getElementById(div.id).innerHTML = "<span id = 'me'>You:</span> " + document.getElementById('message').value;
+        document.getElementById('chatMessages').appendChild(div);
+        updateScroll();
+    }
+
+    function addReceived() {
+        counter++;
+        var div = document.createElement('div');
+        div.className = 'theirText';
+        div.id = "line " + counter;
+
+        document.getElementsByTagName('body')[0].appendChild(div);
+        document.getElementById(div.id).innerHTML = "<span id = 'them'>Them:</span> " + incoming;
+        document.getElementById('chatMessages').appendChild(div);
+        updateScroll();
+    }
+
+    function checkSubmit(e) {
+        if (e && e.keyCode == 13) {
+            submit();
+        }
+    }
+
+    function clearContents(element) {
+        element.value = '';
+    }
+
+    function updateScroll(){
+        var box = document.getElementById("chatMessages");
+        box.scrollTop = box.scrollHeight;
+    }
+
+    </script>
+</head>
+
+<body>
+    <div class="flex-container">
+        <div class="header">
+            <h1>kitchencam</h1>
+        </div>
+        <div id="intro" class="intro">
+            a live peek into <a href="http://nicole.pizza">nicole</a>'s kitchen. take a picture to take a look.
+        </div>
+        <div id="pic" class="photo">
+            <img src="./kitchen2.jpg" width="60%" align="middle">
+            <p>Last picture taken : <span id="time">4/18/16, 7:12:36 pm</span></p>
+            <div id="count">
+            </div>
+        </div>
+        <div id="chatBox" class="chatBox">
+            <div id="chatMessages" class="chatMessages"></div>
+            <div id="textinput" class="textInput">
+                <p align="center">
+                    <textarea id="message" name="message" class="textarea" onfocus="clearContents(this);" onKeyPress="return checkSubmit(event)">Chat here and press enter to submit.</textarea>
+                </p>
+            </div>
+        </div>
+        <footer id="button" class="buttonDiv">
+            <button type="button" class="button">take a live picture</button>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+.flex-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    text-align: center;
+    -webkit-justify-content: space-between;
+    /* Safari */
+    justify-content: space-between;
+    position: relative;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.flex-container > * {
+    flex: 1 100%;
+}
+
+.photo {
+    -webkit-flex: 2 0 0;
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    max-height: 60%;
+    flex-direction: column;
+    background-color: #444444;
+}
+
+.chatBox {
+    display: flex;
+    flex-direction: column;
+    -webkit-flex: 1 0 0;
+    flex: 1;
+    background-color: #313333;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px;
+    width: 100%;
+    max-height: 60%;
+    flex-flow: column nowrap;
+    overflow: auto;
+}
+
+.chatBox .chatMessages {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 55%;
+    align-items: left;
+    text-align: left;
+    padding: 20px;
+    overflow: auto;
+}
+
+.chatBox .textInput {
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 10%;
+}
+
+.header {
+    background-color: #000000;
+    padding: 10px;
+}
+
+.intro {
+    background-color: #888888;
+    padding: 10px;
+}
+
+.buttonDiv {
+    background-color: #000000;
+    padding: 25px;
+    width: 100%;
+}
+
+.button {
+    background-color: #FF9452;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: Droid Sans Mono;
+}
+
+.button:hover {
+    background-color: #CC745A;
+}
+
+body {
+    margin: 0;
+    font-family: Droid Sans Mono;
+    color: #ffffff;
+    font-size: 12pt;
+    background-color: #000000;
+}
+
+a {
+    color: #75FAED;
+}
+
+a:hover {
+    color: #429E95;
+}
+
+h1 {
+    margin: 0;
+    font-family: Droid Sans Mono;
+    color: #FF9452;
+    font-size: 36pt;
+}
+
+img {
+    padding: 5px;
+    border: 5px solid #52FF86;
+}
+
+#me {
+    margin: 0;
+    font-family: Droid Sans Mono;
+    color: #292929;
+    font-size: 13pt;
+    background-color: #F5F0A6;
+}
+
+#them {
+    margin: 0;
+    font-family: Droid Sans Mono;
+    color: #292929;
+    font-size: 13pt;
+    background-color: #F5A6F0;
+}
+
+#time {
+    margin: 0;
+    font-family: Droid Sans Mono;
+    color: #292929;
+    background-color: #52FF86;
+}
+
+div.yourText {
+    color: #F5F0A6;
+    font-size: 12pt;
+    font-weight: normal;
+    width: 90%;
+    margin-left: 30px;
+    margin-top: 10px;
+    float: left;
+}
+
+div.theirText {
+    color: #F5A6F0;
+    font-size: 12pt;
+    width: 90%;
+    margin-left: 30px;
+    margin-top: 10px;
+    float: left;
+}
+
+textarea {
+    display: flex;
+    -webkit-flex: 1;
+    flex: 1;
+    width: 100%;
+    font-size: 12pt;
+    font-family: Droid Sans Mono;
+
+}
+
+@media all and (min-width: 800px) {
+    .photo {
+        order: 1;
+    }
+    .chatBox {
+        order: 2;
+    }
+    .buttonDiv {
+        order: 3;
+    }
+}
